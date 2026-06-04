@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Activity, Zap, FileDown } from "lucide-react"
 
-import { axesData, kpiSummary, type Axe } from "@/lib/dashboard-data"
+import { axesData, kpiSummary, type Axe, type KPISummary } from "@/lib/dashboard-data"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { KPICard } from "@/components/dashboard/kpi-card"
 import { AxeCard } from "@/components/dashboard/axe-card"
@@ -77,6 +77,59 @@ function mapApiToAxes(apiData: any[]): Axe[] {
 export default function Dashboard() {
   const [liveAxes, setLiveAxes] = useState<Axe[]>(axesData)
   const [isLoading, setIsLoading] = useState(true)
+
+  // ===== KPIs calculés dynamiquement depuis les vraies données =====
+  const totalIndicators = liveAxes.reduce((sum, a) => sum + a.indicators.length, 0)
+  const totalAxes = liveAxes.length
+  const successIndicators = liveAxes.reduce(
+    (sum, a) => sum + a.indicators.filter((i) => i.status === "success").length,
+    0
+  )
+  const conformityRate = totalIndicators > 0
+    ? Math.round((successIndicators / totalIndicators) * 100)
+    : 0
+  const avgPerformance = totalIndicators > 0
+    ? Math.round(
+        liveAxes.reduce((sum, a) => sum + a.indicators.reduce((s, i) => s + i.pourcentage, 0), 0) /
+        totalIndicators
+      )
+    : 0
+
+  const liveKPIs: KPISummary[] = [
+    {
+      id: "kpi-1",
+      title: "Indicateurs Suivis",
+      value: String(totalIndicators),
+      description: "Total des indicateurs actifs",
+      icon: kpiSummary[0].icon,
+      trend: "stable",
+    },
+    {
+      id: "kpi-2",
+      title: "Taux de Conformité",
+      value: `${conformityRate}%`,
+      description: `${successIndicators}/${totalIndicators} objectifs atteints`,
+      icon: kpiSummary[1].icon,
+      trend: "stable",
+    },
+    {
+      id: "kpi-3",
+      title: "Axes Stratégiques",
+      value: String(totalAxes),
+      description: "Domaines d'excellence",
+      icon: kpiSummary[2].icon,
+      trend: "stable",
+    },
+    {
+      id: "kpi-4",
+      title: "Performance Globale",
+      value: `${avgPerformance}%`,
+      description: "Score moyen pondéré",
+      icon: kpiSummary[3].icon,
+      trend: "stable",
+    },
+  ]
+
   const handleExportPDF = () => {
     window.print()
   }
@@ -128,7 +181,7 @@ export default function Dashboard() {
             )}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {kpiSummary.map((kpi, index) => (
+            {liveKPIs.map((kpi, index) => (
               <KPICard key={kpi.id} kpi={kpi} index={index} />
             ))}
           </div>
