@@ -28,9 +28,9 @@ export function DashboardHeader() {
           {/* BSN Logo + Title */}
           <div className="flex items-center gap-4">
             <img
-              src="/logo_carre_bsn.png"
+              src="/logo_rectangle_bsn.png"
               alt="BSN Logo"
-              className="h-10 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+              className="h-14 object-contain hover:scale-105 transition-transform duration-300"
             />
             <div>
               <h1 className="text-lg md:text-2xl font-bold tracking-tight">

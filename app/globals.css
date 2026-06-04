@@ -567,3 +567,90 @@
   background: linear-gradient(90deg, #00AEEF, transparent);
   border-radius: 2px;
 }
+
+/* ===== PRINT / PDF EXPORT ===== */
+
+@media print {
+  /* Reset layout for print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    font-size: 11px;
+  }
+
+  /* Hide interactive elements */
+  .print\:hidden,
+  button,
+  .live-badge::before,
+  .animate-ping {
+    display: none !important;
+  }
+
+  /* Remove animations and transitions */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Header */
+  header {
+    background: #00AEEF !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Full width layout */
+  .container {
+    max-width: 100% !important;
+    padding: 16px !important;
+  }
+
+  main {
+    padding: 12px !important;
+  }
+
+  /* Cards */
+  .card-premium, .axe-card {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 12px;
+  }
+
+  .card-premium:hover, .axe-card:hover {
+    transform: none !important;
+  }
+
+  /* KPI grid — 4 columns */
+  .grid {
+    display: grid !important;
+  }
+
+  /* Force all axe cards expanded */
+  .max-h-0 {
+    max-height: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Page breaks */
+  section {
+    page-break-inside: avoid;
+  }
+
+  footer {
+    margin-top: 16px !important;
+    border-top: 1px solid #e2e8f0 !important;
+  }
+
+  /* Force colors for status badges */
+  .bg-emerald-50 { background-color: #ecfdf5 !important; }
+  .bg-amber-50   { background-color: #fffbeb !important; }
+  .bg-red-50     { background-color: #fef2f2 !important; }
+}

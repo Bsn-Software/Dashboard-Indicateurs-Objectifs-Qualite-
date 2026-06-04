@@ -1,12 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Activity, Zap } from "lucide-react"
+import { Activity, Zap, FileDown } from "lucide-react"
 
 import { axesData, kpiSummary, type Axe } from "@/lib/dashboard-data"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { KPICard } from "@/components/dashboard/kpi-card"
 import { AxeCard } from "@/components/dashboard/axe-card"
+
 
 function mapApiToAxes(apiData: any[]): Axe[] {
   return apiData.map((apiAxe, index) => {
@@ -76,6 +77,9 @@ function mapApiToAxes(apiData: any[]): Axe[] {
 export default function Dashboard() {
   const [liveAxes, setLiveAxes] = useState<Axe[]>(axesData)
   const [isLoading, setIsLoading] = useState(true)
+  const handleExportPDF = () => {
+    window.print()
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -102,6 +106,15 @@ export default function Dashboard() {
       <main className="container mx-auto px-4 sm:px-6 py-8">
         {/* KPI Summary Section */}
         <section className="mb-10">
+          <div className="flex justify-end mb-4 print:hidden">
+            <button
+              onClick={handleExportPDF}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-[#00AEEF] hover:bg-[#0077b6] rounded-lg shadow-sm transition-all duration-200 hover:shadow-md active:scale-95"
+            >
+              <FileDown className="h-4 w-4" />
+              Exporter en PDF
+            </button>
+          </div>
           <div className="flex items-center justify-between mb-6">
             <h2 className="section-title text-lg font-bold text-foreground">
               <Zap className="h-5 w-5 text-[#00AEEF]" />
