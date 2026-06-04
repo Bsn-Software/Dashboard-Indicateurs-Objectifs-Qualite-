@@ -43,8 +43,7 @@ export const kpiSummary: KPISummary[] = [
     value: "89%",
     description: "Objectifs atteints",
     icon: ShieldCheck,
-    trend: "up",
-    trendValue: "+3%",
+    trend: "stable",
   },
   {
     id: "kpi-3",
@@ -60,8 +59,7 @@ export const kpiSummary: KPISummary[] = [
     value: "93%",
     description: "Score moyen pondéré",
     icon: TrendingUp,
-    trend: "up",
-    trendValue: "+5%",
+    trend: "stable",
   },
 ]
 
