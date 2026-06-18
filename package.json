@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@azure/identity": "^4.13.1",
+    "@bsn-software/app-launcher": "^1.0.3",
     "@hookform/resolvers": "^3.9.1",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@radix-ui/react-accordion": "1.2.12",

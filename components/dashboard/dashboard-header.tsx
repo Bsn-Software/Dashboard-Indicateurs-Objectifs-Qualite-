@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
+import { AppLauncher } from "@bsn-software/app-launcher"
 
 export function DashboardHeader() {
   const [currentTime, setCurrentTime] = useState<string>("")
@@ -27,11 +28,14 @@ export function DashboardHeader() {
         <div className="flex items-center justify-between">
           {/* BSN Logo + Title */}
           <div className="flex items-center gap-4">
-            <img
-              src="/logo_rectangle_bsn.png"
-              alt="BSN Logo"
-              className="h-14 object-contain hover:scale-105 transition-transform duration-300"
-            />
+            <AppLauncher align="start" apiUrl="https://portail-bsn.netlify.app/api/apps" />
+            <div className="border-l border-white/20 pl-4 flex-shrink-0">
+              <img
+                src="/logo_rectangle_bsn.png"
+                alt="BSN Logo"
+                className="h-14 object-contain hover:scale-105 transition-transform duration-300"
+              />
+            </div>
             <div>
               <h1 className="text-lg md:text-2xl font-bold tracking-tight">
                 Tableau de Bord Performance & Qualité
